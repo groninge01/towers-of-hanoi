@@ -1,0 +1,13 @@
+<form>
+  <select>
+    <option value="" disabled>Choose number of disks</option>
+    <option *ngFor="let disk of disks" (click)="onSelect(disk)">
+      {{ disk.name }}
+    </option>
+  </select>
+</form>
+
+<p>
+  Disk id: {{ selectedDisk.id }}<br>
+  Disk name: {{ selectedDisk.name }}
+</p>
