@@ -1,10 +1,10 @@
 import { Disk } from './disk';
 
 export const DISKS: Disk[] = [
-    new Disk(5, 'Five' ),
-    new Disk(6, 'Six' ),
-    new Disk(7, 'Seven' ),
-    new Disk(8, 'Eight' ),
-    new Disk(9, 'Nine'),
-    new Disk(10, 'Ten')
+    { id: 5, name: 'Five' },
+    { id: 6, name: 'Six' },
+    { id: 7, name: 'Seven' },
+    { id: 8, name: 'Eight' },
+    { id: 9, name: 'Nine'},
+    { id: 10, name: 'Ten'}
   ];
