@@ -1,12 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { DiskListComponent } from './disk-list/disk-list.component';
+import { TowerOfHanoiComponent } from './tower-of-hanoi/tower-of-hanoi.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule ],
       declarations: [
-        AppComponent
+        AppComponent,
+        DiskListComponent,
+        TowerOfHanoiComponent
       ],
     }).compileComponents();
   }));

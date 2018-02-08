@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { DiskListComponent } from './disk-list.component';
+import { TowerOfHanoiComponent } from '../tower-of-hanoi/tower-of-hanoi.component';
 
 describe('DiskListComponent', () => {
   let component: DiskListComponent;
@@ -8,7 +10,11 @@ describe('DiskListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DiskListComponent ]
+      imports: [ FormsModule ],
+      declarations: [
+        DiskListComponent,
+        TowerOfHanoiComponent
+      ]
     })
     .compileComponents();
   }));
