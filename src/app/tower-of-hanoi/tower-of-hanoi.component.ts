@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Disk } from '../disk-list/disk';
 
 @Component({
   selector: 'app-tower-of-hanoi',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tower-of-hanoi.component.css']
 })
 export class TowerOfHanoiComponent implements OnInit {
+
+  @Input() disk: Disk;
 
   constructor() { }
 

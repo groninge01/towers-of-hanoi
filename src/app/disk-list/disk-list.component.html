@@ -7,10 +7,4 @@
   </select>
 </form>
 
-<div *ngIf="selectedDisk">
-  <p>
-    Disk id: {{ selectedDisk.id }}<br>
-    Disk name: {{ selectedDisk.name }}
-  </p>
-</div>
-
+<app-tower-of-hanoi [disk]="selectedDisk"></app-tower-of-hanoi>
