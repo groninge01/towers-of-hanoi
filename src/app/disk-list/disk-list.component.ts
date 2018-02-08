@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 import { Disk } from './disk';
 import { DISKS } from './disks';
 
@@ -18,10 +19,6 @@ export class DiskListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  onSelect(disk: Disk): void {
-    this.selectedDisk = disk;
   }
 
 }

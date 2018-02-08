@@ -1,7 +1,7 @@
 <form>
-  <select>
+  <select [(ngModel)]="selectedDisk" name="disk">
     <option value="" disabled>Choose number of disks</option>
-    <option *ngFor="let disk of disks" (click)="onSelect(disk)">
+    <option *ngFor="let disk of disks" [ngValue]="disk">
       {{ disk.name }}
     </option>
   </select>
