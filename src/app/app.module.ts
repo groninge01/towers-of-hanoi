@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { DiskListComponent } from './disk-list/disk-list.component';
 
 import { AppComponent } from './app.component';
+import { TowerOfHanoiComponent } from './tower-of-hanoi/tower-of-hanoi.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DiskListComponent
+    DiskListComponent,
+    TowerOfHanoiComponent
   ],
   imports: [
     BrowserModule,
