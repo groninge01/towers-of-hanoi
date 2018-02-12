@@ -1,0 +1,32 @@
+$disks: 10;
+$disk-height: 25px;
+$disk-width-base: 0px;
+$disk-width-increment: 50px;
+$disk-colors: red,green,pink,blue,black,orange,yellow,purple,violet,grey;
+
+@mixin rectangle($width, $height, $color) {
+	width: $width;
+	height: $height;
+	background: $color;
+}
+
+@mixin disk-x-list {
+  @for $i from 1 through $disks {
+      $disk-color: nth($disk-colors,$i);
+      .disk-#{$i} { 
+          $disk-width: $disk-width-base + ($i * $disk-width-increment);
+          @include rectangle($disk-width, $disk-height, $disk-color);
+          width: $disk-width;
+        }
+  }
+}
+
+@include disk-x-list;
+
+.container {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

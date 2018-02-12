@@ -3,5 +3,10 @@
     Disk id: {{ disk.id }}<br>
     Disk name: {{ disk.name }}
   </p>
+  <div class="container">
+    <div *ngFor="let i of Arr(disk.id).fill(1); let j = index" #elem [id]="j+1" [className]="'item disk-'+(j+1)">
+  </div>
+
+  </div>
 </div>
  
