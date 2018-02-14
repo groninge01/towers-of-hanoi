@@ -1,8 +1,8 @@
 /* 
 Towers of Hanoi
 
-It consists of three rods (labeled A, B & C) and a number of disks of different sizes, which can slide onto any rod. 
-The puzzle starts with the disks in a neat stack in ascending order of size on one rod, the smallest at the top, 
+It consists of three pegs (labeled A, B & C) and a number of disks of different sizes, which can slide onto any peg. 
+The puzzle starts with the disks in a neat stack in ascending order of size on one peg, the smallest at the top, 
 thus making a conical shape.
 
 Rules:
@@ -11,22 +11,22 @@ Rules:
 - No disk may be placed on top of a smaller disk.
 */
 
-// number of disks on rod A
+// number of disks on peg A
 var n = 15;
 
-// rod A, B & C are empty
-var rodA = [];
-var rodB = [];
-var rodC = [];
+// peg A, B & C are empty
+var pegA = [];
+var pegB = [];
+var pegC = [];
 
-// put n disks on rod A
+// put n disks on peg A
 
 for (var i = n; i > 0; i--) {
-    rodA.push(i);
+    pegA.push(i);
 }
 
-// [[disks on rod A], [disks on rod B], [disks on rod C]]
-var disks = [rodA, rodB, rodC];
+// [[disks on peg A], [disks on peg B], [disks on peg C]]
+var disks = [pegA, pegB, pegC];
 
 console.log(disks);
 
@@ -39,7 +39,7 @@ function solveHanoi(numDisks, disks, source, dest) {
     }
 
     // recursive case
-    // keep track of which rod is the spare
+    // keep track of which peg is the spare
     var spare = 3 - source - dest;
 
     solveHanoi(numDisks-1, disks, source, spare);
