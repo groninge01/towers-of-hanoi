@@ -1,16 +1,44 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { useAnimation, state, style, transition, trigger } from '@angular/animations';
+
+import { fadeAnimation } from './animations';
 import { Disk } from '../disk-list/disk';
 
 @Component({
   selector: 'app-tower-of-hanoi',
   templateUrl: './tower-of-hanoi.component.html',
-  styleUrls: ['./tower-of-hanoi.component.scss']
-})
+  styleUrls: ['./tower-of-hanoi.component.scss'],
+  animations: [
+    trigger('fadeOutIn', [
+      // state('in', style({opacity: 1})),
+      transition('peg-a => *, peg-b => *, peg-c => *', [
+        useAnimation(fadeAnimation, {
+          params: {
+          from: 1,
+          to: 0,
+          time: '1s'
+          }
+        }),
+      transition('* => peg-a, * => peg-b, * => peg-c', [
+        useAnimation(fadeAnimation, {
+          params: {
+          from: 0,
+          to: 1,
+          time: '1s'
+          }
+        })
+      ])
+    ])
+  ])
+]})
+
 export class TowerOfHanoiComponent implements OnInit {
 
   Arr = Array; // Array type captured in a variable
 
   pegs = ['peg-a', 'peg-b', 'peg-c'];
+
+  bindingVar = '';
 
   @Input() disk: Disk;
 
@@ -30,16 +58,30 @@ export class TowerOfHanoiComponent implements OnInit {
     // keep track of which peg is the spare
     const spare = 3 - source - destination;
 
-    const peg = this.pegs[destination];
+    const destPeg = this.pegs[destination];
+    const elDestPeg = document.getElementById(destPeg);
+
+    const sourcePeg = this.pegs[source];
+    const elSourcePeg = document.getElementById(sourcePeg);
+
+    const disk = 'disk-' + numDisks;
+    const elDiskToMove = document.getElementById(disk);
 
     this.solveHanoi(numDisks - 1, source, spare);
 
-    const destPeg = document.getElementById(peg);
-    const disk = 'disk-' + numDisks;
+    this.bindingVar = sourcePeg;
+    elSourcePeg.removeChild(elDiskToMove);
 
-    console.log('disk: ' + disk, 'peg: ' + destPeg.id);
+    console.log(disk, ': ', sourcePeg, ' -> ', destPeg);
 
-    destPeg.insertBefore(document.getElementById(disk), destPeg.childNodes[0]);
+    const rectBefore = elDiskToMove.getBoundingClientRect();
+
+    this.bindingVar = destPeg;
+    elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
+
+    const rectAfter = elDiskToMove.getBoundingClientRect();
+
+    // console.log('before: ' + rectBefore.top, 'after: ' + rectAfter.top);
 
     this.solveHanoi(numDisks - 1, spare, destination);
 

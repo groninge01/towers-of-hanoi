@@ -3,7 +3,7 @@
     <button type="button" (click)="solveHanoi(disk.id, 0, 1)">Solve Hanoi</button>
 
       <div id="peg-a" class="container-small">
-        <div *ngFor="let i of Arr(disk.id).fill(1); let j = index" #elem [id]="'disk-'+(j+1)" [className]="'item disk-'+(j+1)"></div>
+        <div *ngFor="let i of Arr(disk.id).fill(1); let j = index" #elem [id]="'disk-'+(j+1)" [className]="'item disk-'+(j+1)" [@fadeOutIn]="bindingVar"></div>
       </div>
 
       <div id="peg-b" class="container-small"></div>
