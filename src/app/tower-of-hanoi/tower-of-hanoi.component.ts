@@ -72,7 +72,7 @@ export class TowerOfHanoiComponent implements OnInit {
     this.bindingVar = sourcePeg;
     elSourcePeg.removeChild(elDiskToMove);
 
-    console.log(disk, ': ', sourcePeg, ' -> ', destPeg);
+    console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
 
     const rectBefore = elDiskToMove.getBoundingClientRect();
 
