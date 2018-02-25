@@ -18,7 +18,8 @@ import { Disk } from '../disk-list/disk';
           to: 0,
           time: '1s'
           }
-        }),
+        })
+      ]),
       transition('* => peg-a, * => peg-b, * => peg-c', [
         useAnimation(fadeAnimation, {
           params: {
@@ -29,7 +30,6 @@ import { Disk } from '../disk-list/disk';
         })
       ])
     ])
-  ])
 ]})
 
 export class TowerOfHanoiComponent implements OnInit {
