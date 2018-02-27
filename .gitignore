@@ -18,7 +18,7 @@
 *.sublime-workspace
 
 # IDE - VS
-.vs
+.vs/*
 
 # IDE - VSCode
 .vscode/*
