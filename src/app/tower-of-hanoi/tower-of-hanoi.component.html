@@ -1,9 +1,24 @@
-<div *ngIf="disk">
+<form>
+  <select [(ngModel)]="selectedNumber" name="number">
+    <option value="" disabled>Choose number of disks</option>
+    <option *ngFor="let number of numbers" [ngValue]="number">
+      {{ number }}
+    </option>
+  </select>
+</form>
+<br>
+
+<button type="button" (click)="createStack()">Create stack</button>
+
+
+<div *ngIf="selectedNumber">
   <div class="container-big">
-    <button type="button" (click)="solveHanoi(disk.id, 0, 1)">Solve Hanoi</button>
+    <button type="button" (click)="solveHanoi(disks.length, 0, 1)">Solve Hanoi</button>
 
       <div id="peg-a" class="container-small">
-        <div *ngFor="let disk of disks" #elem [id]="'disk-' + disk.id" [className]="'item disk-' + disk.id" [@fadeOutIn]="disk.state"></div>
+        <div *ngFor="let disk of disks" #elem [id]="'disk-' + disk.id" [className]="'item disk-' + disk.id" [@fadeOutIn]="disk.state">
+          {{ disk.state }}
+        </div>
       </div>
 
       <div id="peg-b" class="container-small"></div>
