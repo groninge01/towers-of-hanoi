@@ -1,9 +1,11 @@
 <div *ngIf="disk">
   <div class="container-big">
     <button type="button" (click)="solveHanoi(disk.id, 0, 1)">Solve Hanoi</button>
+    <button type="button" (click)="moveOneDisk()">Move disk-1</button>
 
       <div id="peg-a" class="container-small">
-        <div *ngFor="let i of Arr(disk.id).fill(1); let j = index" #elem [id]="'disk-'+(j+1)" [className]="'item disk-'+(j+1)" [@fadeOutIn]="bindingVar"></div>
+        <!-- <div *ngFor="let i of Arr(disk.id).fill(1); let j = index" [id]="'disk-'+(j+1)" [className]="'item disk-'+(j+1)" [@fadeOutIn]="'in'"></div> -->
+        <div *ngFor="let disk of disks" #elem [id]="'disk-' + disk.id" [className]="'item disk-' + disk.id" [@fadeOutIn]="disk.peg"></div>
       </div>
 
       <div id="peg-b" class="container-small"></div>
