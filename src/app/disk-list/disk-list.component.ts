@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Disk } from './disk';
-import { DISKS } from './disks';
 
 @Component({
   selector: 'app-disk-list',
@@ -10,9 +8,9 @@ import { DISKS } from './disks';
 
 export class DiskListComponent implements OnInit {
 
-  disks = DISKS;
+  numbers = [5,6,7,8,9,10];
 
-  selectedDisk: Disk;
+  selectedNumber: number;
 
   constructor() { }
 

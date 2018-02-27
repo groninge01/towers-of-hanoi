@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { useAnimation, state, style, transition, trigger } from '@angular/animations';
 
 import { fadeAnimation } from './animations';
-import { Disk } from '../disk-list/disk';
 
 @Component({
   selector: 'app-tower-of-hanoi',
@@ -38,11 +37,18 @@ export class TowerOfHanoiComponent implements OnInit {
 
   pegs = ['peg-a', 'peg-b', 'peg-c'];
 
-  bindingVar = '';
+  @Input() number: number;
 
-  @Input() disk: Disk;
+  disks = [];
 
-  constructor() { }
+  constructor() {
+    for (let i = 1; i < this.number; i++) {
+      this.disks.push({
+        id: i,
+        state: 'in'
+      });
+    }
+  }
 
   ngOnInit() {
   }
@@ -69,19 +75,13 @@ export class TowerOfHanoiComponent implements OnInit {
 
     this.solveHanoi(numDisks - 1, source, spare);
 
-    this.bindingVar = sourcePeg;
+    this.disks[numDisks].state = sourcePeg;
     elSourcePeg.removeChild(elDiskToMove);
 
     console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
 
-    const rectBefore = elDiskToMove.getBoundingClientRect();
-
-    this.bindingVar = destPeg;
+    this.disks[numDisks].state = destPeg;
     elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
-
-    const rectAfter = elDiskToMove.getBoundingClientRect();
-
-    // console.log('before: ' + rectBefore.top, 'after: ' + rectAfter.top);
 
     this.solveHanoi(numDisks - 1, spare, destination);
 

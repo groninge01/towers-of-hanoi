@@ -1,4 +1,4 @@
 export class Disk {
-    id: number;
-    name: string;
+    public id: number;
+    public state: string;
 }
