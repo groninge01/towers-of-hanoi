@@ -13,11 +13,11 @@ import { useAnimation, animate, group, query, state, style, transition, trigger 
       transition("* <=> *", group([
         query(':enter', [
           style({ opacity: 1 }),
-          animate('0.5s ease-in')
+          animate('2s ease-in')
         ]),
         query(':leave', [
           style({ opacity: 0 }),
-          animate('0.5s ease-out')
+          animate('3s ease-out')
         ])
       ]))
       ])
