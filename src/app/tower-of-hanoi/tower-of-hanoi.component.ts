@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { useAnimation, state, style, transition, trigger } from '@angular/animations';
+import { useAnimation, animate, group, query, state, style, transition, trigger } from '@angular/animations';
 
-import { fadeAnimation } from './animations';
+// import { fadeAnimation } from './animations';
 
 @Component({
   selector: 'app-tower-of-hanoi',
@@ -9,27 +9,19 @@ import { fadeAnimation } from './animations';
   styleUrls: ['./tower-of-hanoi.component.scss'],
   animations: [
     trigger('fadeOutIn', [
-      // state('in', style({opacity: 1})),
-      transition(':leave', [
-        useAnimation(fadeAnimation, {
-          params: {
-          from: 1,
-          to: 0,
-          time: '1s'
-          }
-        })
-      ]),
-      transition(':enter', [
-        useAnimation(fadeAnimation, {
-          params: {
-          from: 0,
-          to: 1,
-          time: '1s'
-          }
-        })
+      state('in', style({opacity: 1})),
+      transition("* <=> *", group([
+        query(':enter', [
+          style({ opacity: 1 }),
+          animate('0.5s ease-in')
+        ]),
+        query(':leave', [
+          style({ opacity: 0 }),
+          animate('0.5s ease-out')
+        ])
+      ]))
       ])
-    ])
-]})
+    ]})
 
 export class TowerOfHanoiComponent implements OnInit {
 

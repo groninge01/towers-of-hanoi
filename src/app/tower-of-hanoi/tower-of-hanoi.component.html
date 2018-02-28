@@ -16,15 +16,15 @@
     <button type="button" (click)="solveHanoi(disks.length, 0, 1)">Solve Hanoi</button>
     <button type="button" (click)="moveOneDisk()">Solve Hanoi</button>
 
-      <div id="peg-a" class="container-small">
-        <div *ngFor="let disk of disks" #elem [id]="'disk-' + disk.id" [className]="'item disk-' + disk.id" [@fadeOutIn]="disk.state">
+      <div id="peg-a" class="container-small" [@fadeOutIn]="disk.state">
+        <div *ngFor="let disk of disks" #elem [id]="'disk-' + disk.id" [className]="'item disk-' + disk.id">
           {{ disk.state }}
         </div>
       </div>
 
-      <div id="peg-b" class="container-small"></div>
+      <div id="peg-b" class="container-small" [@fadeOutIn]="disk.state"></div>
 
-      <div id="peg-c" class="container-small"></div>
+      <div id="peg-c" class="container-small" [@fadeOutIn]="disk.state"></div>
 
   </div>  
 </div>
