@@ -53,6 +53,25 @@ export class TowerOfHanoiComponent implements OnInit {
   ngOnInit() {
   }
 
+  moveOneDisk() {
+    const destPeg = this.pegs[1];
+    const elDestPeg = document.getElementById(destPeg);
+
+    const sourcePeg = this.pegs[0];
+    const elSourcePeg = document.getElementById(sourcePeg);
+
+    const disk = 'disk-1';
+    const elDiskToMove = document.getElementById(disk);
+
+    this.disks[0].state = sourcePeg;
+    elSourcePeg.removeChild(elDiskToMove);
+
+    console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
+
+    this.disks[0].state = destPeg;
+    elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
+  }
+
   solveHanoi(numDisks, source, destination) {
 
     // base case; there are no disks to move
