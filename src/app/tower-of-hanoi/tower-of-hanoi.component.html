@@ -14,6 +14,7 @@
 <div *ngIf="selectedNumber">
   <div class="container-big">
     <button type="button" (click)="solveHanoi(disks.length, 0, 1)">Solve Hanoi</button>
+    <button type="button" (click)="moveOneDisk()">Solve Hanoi</button>
 
       <div id="peg-a" class="container-small">
         <div *ngFor="let disk of disks" #elem [id]="'disk-' + disk.id" [className]="'item disk-' + disk.id" [@fadeOutIn]="disk.state">
