@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
-import { useAnimation, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, Input } from '@angular/core';
+import { useAnimation, animate, group, query, state, style, transition, trigger } from '@angular/animations';
 
-import { fadeAnimation } from './animations';
-import { Disk } from '../disk-list/disk';
+// import { fadeAnimation } from './animations';
 
 @Component({
   selector: 'app-tower-of-hanoi',
@@ -11,36 +10,28 @@ import { Disk } from '../disk-list/disk';
   animations: [
     trigger('fadeOutIn', [
       state('in', style({opacity: 1})),
-      transition('void => *', [
-        useAnimation(fadeAnimation, {
-          params: {
-          from: 0,
-          to: 1,
-          time: '3s'
-          }
-        })
-      ]),
-      transition('* => void', [
-        useAnimation(fadeAnimation, {
-          params: {
-          from: 1,
-          to: 0,
-          time: '3s'
-          }
-        })
+      transition("* <=> *", group([
+        query(':enter', [
+          style({ opacity: 1 }),
+          animate('0.5s ease-in')
+        ]),
+        query(':leave', [
+          style({ opacity: 0 }),
+          animate('0.5s ease-out')
+        ])
+      ]))
       ])
-    ])
-]})
+    ]})
 
 export class TowerOfHanoiComponent implements OnInit {
 
-  Arr = Array; // Array type captured in a variable
-
   pegs = ['peg-a', 'peg-b', 'peg-c'];
 
-  disks = {};
+  numbers = [5, 6, 7, 8, 9, 10];
 
-  @Input() disk: Disk;
+  selectedNumber: number;
+
+  disks = [];
 
   constructor() {
 
@@ -50,8 +41,16 @@ export class TowerOfHanoiComponent implements OnInit {
 
   }
 
-  moveOneDisk() {
+  createStack() {
+    for (let i = 0; i < this.selectedNumber; i++) {
+      this.disks[i] = {
+        id: i + 1,
+        state: 'in'
+      };
+    }
+  }
 
+  moveOneDisk() {
     const destPeg = this.pegs[1];
     const elDestPeg = document.getElementById(destPeg);
 
@@ -61,12 +60,13 @@ export class TowerOfHanoiComponent implements OnInit {
     const disk = 'disk-1';
     const elDiskToMove = document.getElementById(disk);
 
-    // elSourcePeg.removeChild(elDiskToMove);
+    this.disks[0].state = sourcePeg;
+    elSourcePeg.removeChild(elDiskToMove);
 
     console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
 
+    this.disks[0].state = destPeg;
     elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
-
   }
 
   solveHanoi(numDisks, source, destination) {
@@ -91,17 +91,13 @@ export class TowerOfHanoiComponent implements OnInit {
 
     this.solveHanoi(numDisks - 1, source, spare);
 
-    console.log(this.disk.peg);
-
-    this.disk.peg = sourcePeg;
+    this.disks[numDisks - 1].state = sourcePeg;
     elSourcePeg.removeChild(elDiskToMove);
-    // this.ref.detectChanges();
 
     // console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
 
-    this.disk.peg = destPeg;
+    this.disks[numDisks - 1].state = destPeg;
     elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
-    // this.ref.detectChanges();
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
