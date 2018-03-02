@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { useAnimation, animate, group, query, state, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit, Input, Optional } from '@angular/core';
+import { useAnimation, animate, animation, group, query, state, style, transition, trigger } from '@angular/animations';
 
 // import { fadeAnimation } from './animations';
 
@@ -9,29 +9,37 @@ import { useAnimation, animate, group, query, state, style, transition, trigger 
   styleUrls: ['./tower-of-hanoi.component.scss'],
   animations: [
     trigger('fadeOutIn', [
-      state('in', style({opacity: 1})),
-      transition("* <=> *", group([
-        query(':enter', [
-          style({ opacity: 1 }),
-          animate('2s ease-in')
-        ]),
-        query(':leave', [
-          style({ opacity: 0 }),
-          animate('3s ease-out')
-        ])
-      ]))
+      transition('* => *', [
+        query(':enter', animation(
+          [
+            style({ opacity: 0 }),
+            animate('1s ease-in', style({ opacity: 1 }))
+          ]), { optional: true }),
+        query(':leave', animation(
+          [
+            style({ opacity: 1 }),
+            animate('1s ease-out', style({ opacity: 0 }))
+          ]), { optional: true })
       ])
-    ]})
+    ])
+  ]
+})
 
 export class TowerOfHanoiComponent implements OnInit {
-
-  pegs = ['peg-a', 'peg-b', 'peg-c'];
 
   numbers = [5, 6, 7, 8, 9, 10];
 
   selectedNumber: number;
 
-  disks = [];
+  pegA = [];
+  pegB = [];
+  pegC = [];
+
+  pegs = [this.pegA, this.pegB, this.pegC];
+
+  diskA = '';
+  diskB = '';
+  diskC = '';
 
   constructor() {
 
@@ -43,30 +51,24 @@ export class TowerOfHanoiComponent implements OnInit {
 
   createStack() {
     for (let i = 0; i < this.selectedNumber; i++) {
-      this.disks[i] = {
-        id: i + 1,
-        state: 'in'
+      this.pegA[i] = {
+        id: i,
+        state: 'peg-a'
       };
     }
   }
 
-  moveOneDisk() {
-    const destPeg = this.pegs[1];
-    const elDestPeg = document.getElementById(destPeg);
+  moveTopDisk() {
+    const destPeg = 1;
+    const sourcePeg = 0;
 
-    const sourcePeg = this.pegs[0];
-    const elSourcePeg = document.getElementById(sourcePeg);
+    const disk = this.pegs[sourcePeg][0];
 
-    const disk = 'disk-1';
-    const elDiskToMove = document.getElementById(disk);
+    this.pegs[sourcePeg].shift();
 
-    this.disks[0].state = sourcePeg;
-    elSourcePeg.removeChild(elDiskToMove);
+    this.pegs[destPeg].unshift(disk);
 
-    console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
-
-    this.disks[0].state = destPeg;
-    elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
+    console.log(disk, ': ', this.pegs[sourcePeg], ' --> ', this.pegs[destPeg]);
   }
 
   solveHanoi(numDisks, source, destination) {
@@ -80,24 +82,13 @@ export class TowerOfHanoiComponent implements OnInit {
     // keep track of which peg is the spare
     const spare = 3 - source - destination;
 
-    const destPeg = this.pegs[destination];
-    const elDestPeg = document.getElementById(destPeg);
-
-    const sourcePeg = this.pegs[source];
-    const elSourcePeg = document.getElementById(sourcePeg);
-
-    const disk = 'disk-' + numDisks;
-    const elDiskToMove = document.getElementById(disk);
-
     this.solveHanoi(numDisks - 1, source, spare);
 
-    this.disks[numDisks - 1].state = sourcePeg;
-    elSourcePeg.removeChild(elDiskToMove);
+    const disk = this.pegs[source][0];
 
-    // console.log(disk, ': ', sourcePeg, ' --> ', destPeg);
-
-    this.disks[numDisks - 1].state = destPeg;
-    elDestPeg.insertBefore(elDiskToMove, elDestPeg.childNodes[0]);
+    this.pegs[destination].unshift(disk);
+    this.pegs[source].shift();
+    console.log(disk, this.pegs[source], this.pegs[destination]);
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
