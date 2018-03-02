@@ -13,7 +13,7 @@ $disk-colors: red,green,pink,blue,black,orange,yellow,purple,violet,grey;
 @mixin disk-x-list {
   @for $i from 1 through $disks {
       $disk-color: nth($disk-colors,$i);
-      .disk-#{$i} { 
+      .disk-#{$i - 1} { 
           $disk-width: $disk-width-base + ($i * $disk-width-increment);
           @include rectangle($disk-width, $disk-height, $disk-color);
           width: $disk-width;
