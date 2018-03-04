@@ -53,20 +53,14 @@ export class TowerOfHanoiComponent implements OnInit {
     }
   }
 
-  moveTopDisk(numDisks) {
+  moveTopDisk() {
     const destPeg = 1;
     const sourcePeg = 0;
-    const disk = this.pegs[sourcePeg][numDisks];
-
-    if (numDisks === 0) {
-      return;
-    }
-
-    this.moveTopDisk(numDisks - 1);
+    const disk = this.pegs[sourcePeg][0];
 
     this.pegs[destPeg].unshift(this.pegs[sourcePeg].shift());
 
-    console.log(numDisks);
+    console.log(disk, this.pegA, this.pegB);
   }
 
   solveHanoi(numDisks, source, destination) {
@@ -87,7 +81,7 @@ export class TowerOfHanoiComponent implements OnInit {
     this.pegs[source].shift();
     this.pegs[destination].unshift(disk);
 
-    // console.log(disk, this.pegs[0]);
+    console.log(disk, this.pegA, this.pegB, this.pegC);
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
