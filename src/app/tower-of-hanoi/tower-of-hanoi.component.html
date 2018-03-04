@@ -14,22 +14,22 @@
 <div *ngIf="selectedNumber">
   <div class="container-big">
     <button type="button" (click)="solveHanoi(pegA.length, 0, 1)">Solve Hanoi</button>
-    <button type="button" (click)="moveTopDisk()">Move top disk</button>
+    <button type="button" (click)="moveTopDisk(pegA.length)">Move top disk</button>
 
     <div id="peg-a" class="container-small" [@fadeOutIn]="pegA.length">
-      <div *ngFor="let diskA of pegA" [id]="'disk-' + diskA.id" [className]="'item disk-' + diskA.id">
+      <div *ngFor="let disk of pegA" [id]="'disk-' + disk" [className]="'item disk-' + disk">
         {{ pegA.length }}
       </div>
     </div>
 
     <div id="peg-b" class="container-small" [@fadeOutIn]="pegB.length">
-      <div *ngFor="let diskB of pegB" [id]="'disk-' + diskB.id" [className]="'item disk-' + diskB.id">
+      <div *ngFor="let disk of pegB" [id]="'disk-' + disk" [className]="'item disk-' + disk">
         {{ pegB.length }}
       </div>
     </div>
 
     <div id="peg-c" class="container-small" [@fadeOutIn]="pegC.length">
-      <div *ngFor="let diskC of pegC" [id]="'disk-' + diskC.id" [className]="'item disk-' + diskC.id">
+      <div *ngFor="let disk of pegC" [id]="'disk-' + disk" [className]="'item disk-' + disk">
         {{ pegC.length }}
       </div>
     </div>      
