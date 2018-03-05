@@ -67,9 +67,6 @@ export class TowerOfHanoiComponent implements OnInit {
 
     // base case; there are no disks to move
     if (numDisks === 0) {
-
-      console.log('base case:', this.pegA, this.pegB, this.pegC);
-      
       return;
     }
 
@@ -84,9 +81,11 @@ export class TowerOfHanoiComponent implements OnInit {
     this.pegs[source].shift();
     this.pegs[destination].unshift(disk);
 
-    this.pegA = [...this.pegA];
-    this.pegB = [...this.pegB];
-    this.pegC = [...this.pegC];
+    // this.pegA = [...this.pegA];
+    // this.pegB = [...this.pegB];
+    // this.pegC = [...this.pegC];
+    this.pegs[source] = [...this.pegs[source]];
+    this.pegs[destination] = [...this.pegs[destination]];
     this.ref.markForCheck();
 
     console.log(disk, this.pegA, this.pegB, this.pegC);
