@@ -81,6 +81,10 @@ export class TowerOfHanoiComponent implements OnInit {
     this.pegs[source].shift();
     this.pegs[destination].unshift(disk);
 
+    const shallowCopyPegA = [...this.pegA];
+    const shallowCopyPegB = [...this.pegB];
+    const shallowCopyPegC = [...this.pegC];
+
     console.log(disk, this.pegA, this.pegB, this.pegC);
 
     this.solveHanoi(numDisks - 1, spare, destination);
