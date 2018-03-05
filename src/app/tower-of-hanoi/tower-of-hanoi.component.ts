@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { animate, animation, query, style, transition, trigger } from '@angular/animations';
 
 // import { fadeAnimation } from './animations';
@@ -39,7 +39,7 @@ export class TowerOfHanoiComponent implements OnInit {
 
   disk = '';
 
-  constructor() {
+  constructor(private ref: ChangeDetectorRef) {
 
   }
 
@@ -67,9 +67,6 @@ export class TowerOfHanoiComponent implements OnInit {
 
     // base case; there are no disks to move
     if (numDisks === 0) {
-      this.pegA = [...this.pegA];
-      this.PegB = [...this.pegB];
-      this.PegC = [...this.pegC];
 
       console.log('base case:', this.pegA, this.pegB, this.pegC);
       
@@ -87,7 +84,12 @@ export class TowerOfHanoiComponent implements OnInit {
     this.pegs[source].shift();
     this.pegs[destination].unshift(disk);
 
-    // console.log(disk, this.pegA, this.pegB, this.pegC);
+    this.pegA = [...this.pegA];
+    this.pegB = [...this.pegB];
+    this.pegC = [...this.pegC];
+    this.ref.markForCheck();
+
+    console.log(disk, this.pegA, this.pegB, this.pegC);
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
