@@ -65,6 +65,9 @@ export class TowerOfHanoiComponent implements OnInit {
 
   solveHanoi(numDisks, source, destination) {
 
+    let pegs = this.pegs;
+    const disk = pegs[source][0];
+
     // base case; there are no disks to move
     if (numDisks === 0) {
       return;
@@ -76,22 +79,19 @@ export class TowerOfHanoiComponent implements OnInit {
 
     this.solveHanoi(numDisks - 1, source, spare);
 
-    const disk = this.pegs[source][0];
+    pegs[source].shift();
+    pegs[destination].unshift(disk);
 
-    this.pegs[source].shift();
-    this.pegs[destination].unshift(disk);
+    console.log(disk, pegs);
+    console.log('---');
 
     // this.pegA = [...this.pegA];
     // this.pegB = [...this.pegB];
     // this.pegC = [...this.pegC];
     // this.pegs[source] = [...this.pegs[source]];
     // this.pegs[destination] = [...this.pegs[destination]];
-    // this.ref.markForCheck();
-
-    console.log(disk, this.pegA, this.pegB, this.pegC);
-    console.log(source, destination, spare);
-    console.log(this.pegs[source], this.pegs[destination], this.pegs[spare]);
-    console.log('---');
+    this.pegs = pegs;
+    this.ref.markForCheck();
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
