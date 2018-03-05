@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { animate, animation, query, style, transition, trigger } from '@angular/animations';
 
 // import { fadeAnimation } from './animations';
@@ -31,15 +31,11 @@ export class TowerOfHanoiComponent implements OnInit {
 
   selectedNumber: number;
 
-  pegA = [];
-  pegB = [];
-  pegC = [];
-
-  pegs = [this.pegA, this.pegB, this.pegC];
+  pegs = [[], [], []];
 
   disk = '';
 
-  constructor(private ref: ChangeDetectorRef) {
+  constructor() {
 
   }
 
@@ -49,7 +45,7 @@ export class TowerOfHanoiComponent implements OnInit {
 
   createStack() {
     for (let i = 0; i < this.selectedNumber; i++) {
-      this.pegA[i] = i;
+      this.pegs[0][i] = i;
     }
   }
 
@@ -60,13 +56,17 @@ export class TowerOfHanoiComponent implements OnInit {
 
     this.pegs[destPeg].unshift(this.pegs[sourcePeg].shift());
 
-    console.log(disk, this.pegA, this.pegB);
+    console.log(disk, this.pegs[sourcePeg], this.pegs[destPeg]);
   }
 
   solveHanoi(numDisks, source, destination) {
 
-    let pegs = [...this.pegs];
-    const disk = pegs[source][0];
+    const pegsReducer = (state, action, value) => {
+      switch (action.type) {
+        case 'copyPeg':
+        return Object.assign([...state], { [action.index]: [...value] });
+      }
+    };
 
     // base case; there are no disks to move
     if (numDisks === 0) {
@@ -79,19 +79,16 @@ export class TowerOfHanoiComponent implements OnInit {
 
     this.solveHanoi(numDisks - 1, source, spare);
 
-    pegs[source].shift();
-    pegs[destination].unshift(disk);
+    const disk = this.pegs[source][0];
 
-    console.log(disk, pegs);
+    this.pegs[source].shift();
+    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: source}, this.pegs[source]);
+
+    this.pegs[destination].unshift(disk);
+    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: destination}, this.pegs[destination]);
+
+    console.log('disk: ', disk, 'A: ', this.pegs[0], 'B: ', this.pegs[1], 'C: ', this.pegs[2]);
     console.log('---');
-
-    // this.pegA = [...this.pegA];
-    // this.pegB = [...this.pegB];
-    // this.pegC = [...this.pegC];
-    // this.pegs[source] = [...this.pegs[source]];
-    // this.pegs[destination] = [...this.pegs[destination]];
-    this.pegs = [...pegs];
-    this.ref.markForCheck();
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
