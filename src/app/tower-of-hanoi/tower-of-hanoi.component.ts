@@ -67,6 +67,12 @@ export class TowerOfHanoiComponent implements OnInit {
 
     // base case; there are no disks to move
     if (numDisks === 0) {
+      const shallowCopyPegA = [...this.pegA];
+      const shallowCopyPegB = [...this.pegB];
+      const shallowCopyPegC = [...this.pegC];
+
+      console.log(shallowCopyPegA, shallowCopyPegB,shallowCopyPegC);
+      
       return;
     }
 
@@ -80,10 +86,6 @@ export class TowerOfHanoiComponent implements OnInit {
 
     this.pegs[source].shift();
     this.pegs[destination].unshift(disk);
-
-    const shallowCopyPegA = [...this.pegA];
-    const shallowCopyPegB = [...this.pegB];
-    const shallowCopyPegC = [...this.pegC];
 
     console.log(disk, this.pegA, this.pegB, this.pegC);
 
