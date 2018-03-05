@@ -84,11 +84,14 @@ export class TowerOfHanoiComponent implements OnInit {
     // this.pegA = [...this.pegA];
     // this.pegB = [...this.pegB];
     // this.pegC = [...this.pegC];
-    this.pegs[source] = [...this.pegs[source]];
-    this.pegs[destination] = [...this.pegs[destination]];
-    this.ref.markForCheck();
+    // this.pegs[source] = [...this.pegs[source]];
+    // this.pegs[destination] = [...this.pegs[destination]];
+    // this.ref.markForCheck();
 
     console.log(disk, this.pegA, this.pegB, this.pegC);
+    console.log(source, destination, spare);
+    console.log(this.pegs[source], this.pegs[destination], this.pegs[spare]);
+    console.log('---');
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
