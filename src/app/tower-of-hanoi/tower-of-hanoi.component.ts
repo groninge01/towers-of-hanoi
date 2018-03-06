@@ -43,6 +43,10 @@ export class TowerOfHanoiComponent implements OnInit {
 
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   createStack() {
     for (let i = 0; i < this.selectedNumber; i++) {
       this.pegs[0][i] = i;
@@ -59,7 +63,7 @@ export class TowerOfHanoiComponent implements OnInit {
     console.log(disk, this.pegs[sourcePeg], this.pegs[destPeg]);
   }
 
-  solveHanoi(numDisks, source, destination) {
+  async solveHanoi(numDisks, source, destination): Promise<void> {
 
     const pegsReducer = (state, action, value) => {
       switch (action.type) {
@@ -85,15 +89,12 @@ export class TowerOfHanoiComponent implements OnInit {
     
     const disk = this.pegs[source][0];
 
-    setTimeout(() =>{
+    this.pegs[source].shift();
+    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: source}, this.pegs[source]);
+    this.pegs[destination].unshift(disk);
+    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: destination}, this.pegs[destination]);
 
-      this.pegs[source].shift();
-      // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: source}, this.pegs[source]);
-
-      this.pegs[destination].unshift(disk);
-      // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: destination}, this.pegs[destination]);
-      
-    }, 2000);
+    await this.sleep(2000);
 
     console.log('disk: ', disk, 'A: ', this.pegs[0], 'B: ', this.pegs[1], 'C: ', this.pegs[2]);
     console.log('---');
