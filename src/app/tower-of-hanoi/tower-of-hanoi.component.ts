@@ -85,18 +85,21 @@ export class TowerOfHanoiComponent implements OnInit {
     
     const disk = this.pegs[source][0];
 
-    this.pegs[source].shift();
-    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: source}, this.pegs[source]);
+    setTimeout(() =>{
 
-    this.pegs[destination].unshift(disk);
-    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: destination}, this.pegs[destination]);
+      this.pegs[source].shift();
+      // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: source}, this.pegs[source]);
+
+      this.pegs[destination].unshift(disk);
+      // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: destination}, this.pegs[destination]);
+      
+    }, 2000);
 
     console.log('disk: ', disk, 'A: ', this.pegs[0], 'B: ', this.pegs[1], 'C: ', this.pegs[2]);
     console.log('---');
 
-    setTimeout(() =>{
-      this.solveHanoi(numDisks - 1, spare, destination)
-    }, 2000);
+    this.solveHanoi(numDisks - 1, spare, destination)
+    
 
   }
 
