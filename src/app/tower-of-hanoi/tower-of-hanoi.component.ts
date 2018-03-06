@@ -77,10 +77,12 @@ export class TowerOfHanoiComponent implements OnInit {
     // keep track of which peg is the spare
     const spare = 3 - source - destination;
 
-    setTimeout(() =>{
-      this.solveHanoi(numDisks - 1, source, spare)
-    }, 2000);
+    // setTimeout(() =>{
+    //  this.solveHanoi(numDisks - 1, source, spare)
+    // }, 2000);
 
+    this.solveHanoi(numDisks - 1, source, spare)
+    
     const disk = this.pegs[source][0];
 
     this.pegs[source].shift();
