@@ -27,7 +27,9 @@ import { animate, animation, query, style, transition, trigger } from '@angular/
 
 export class TowerOfHanoiComponent implements OnInit {
 
-  numbers = [5, 6, 7, 8, 9, 10];
+  // numbers = [5, 6, 7, 8, 9, 10];
+
+  numbers = [1, 2, 3, 4];
 
   selectedNumber: number;
 
@@ -43,8 +45,8 @@ export class TowerOfHanoiComponent implements OnInit {
 
   }
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  resetStack() {
+    this.pegs = [[], [], []];
   }
 
   createStack() {
@@ -63,14 +65,7 @@ export class TowerOfHanoiComponent implements OnInit {
     console.log(disk, this.pegs[sourcePeg], this.pegs[destPeg]);
   }
 
-  async solveHanoi(numDisks, source, destination): Promise<void> {
-
-    const pegsReducer = (state, action, value) => {
-      switch (action.type) {
-        case 'copyPeg':
-        return Object.assign([...state], { [action.index]: [...value] });
-      }
-    };
+  solveHanoi(numDisks, source, destination) {
 
     // base case; there are no disks to move
     if (numDisks === 0) {
@@ -85,22 +80,17 @@ export class TowerOfHanoiComponent implements OnInit {
     //  this.solveHanoi(numDisks - 1, source, spare)
     // }, 2000);
 
-    this.solveHanoi(numDisks - 1, source, spare)
-    
+    this.solveHanoi(numDisks - 1, source, spare);
+
     const disk = this.pegs[source][0];
 
     this.pegs[source].shift();
-    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: source}, this.pegs[source]);
     this.pegs[destination].unshift(disk);
-    // this.pegs = pegsReducer(this.pegs, {type: 'copyPeg', index: destination}, this.pegs[destination]);
 
-    await this.sleep(2000);
-
-    console.log('disk: ', disk, 'A: ', this.pegs[0], 'B: ', this.pegs[1], 'C: ', this.pegs[2]);
+    console.log('numDisks: ', numDisks, 'A: ', this.pegs[0], 'B: ', this.pegs[1], 'C: ', this.pegs[2]);
     console.log('---');
 
-    this.solveHanoi(numDisks - 1, spare, destination)
-    
+    this.solveHanoi(numDisks - 1, spare, destination);
 
   }
 
