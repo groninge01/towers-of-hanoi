@@ -54,6 +54,11 @@ export class TowerOfHanoiComponent implements OnInit {
       this.pegs[0][i] = i;
     }
   }
+  moveStackForLoop() {
+    for (let i = 0; i < this.pegs[0].length; i++) {
+      this.pegs[1].unshift(this.pegs[0][0])
+    }
+  }
 
   moveTopDisk() {
     const destPeg = 1;

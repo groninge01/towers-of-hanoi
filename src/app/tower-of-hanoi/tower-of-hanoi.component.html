@@ -16,6 +16,7 @@
   <div class="container-big">
     <button type="button" (click)="solveHanoi(pegs[0].length, 0, 1)">Solve Hanoi</button>
     <button type="button" (click)="moveTopDisk()">Move top disk</button>
+    <button type="button" (click)="moveStackForLoop()">Move stack from A to B</button>
 
     <div id="peg-a" class="container-small" [@fadeOutIn]="pegs[0].length">
       <div *ngFor="let disk of pegs[0]" [id]="'disk-' + disk" [className]="'item disk-' + disk">
