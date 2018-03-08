@@ -28,8 +28,6 @@ import { animate, animation, query, style, transition, trigger } from '@angular/
 export class TowerOfHanoiComponent implements OnInit {
 
   numbers = [5, 6, 7, 8, 9, 10];
-
-  // numbers = [1, 2, 3, 4];
   selectedNumber: number;
   pegs = [[], [], []];
   disk = '';
@@ -51,12 +49,6 @@ export class TowerOfHanoiComponent implements OnInit {
     for (let i = 0; i < this.selectedNumber; i++) {
       this.pegs[0][i] = i;
     }
-  }
-
-  moveDisk(from, to) {
-    const disk = this.pegs[from][0];
-    this.pegs[from].shift();
-    this.pegs[to].unshift(disk);
   }
 
   solveIt(numDisks, source, destination) {
