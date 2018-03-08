@@ -27,15 +27,13 @@ import { animate, animation, query, style, transition, trigger } from '@angular/
 
 export class TowerOfHanoiComponent implements OnInit {
 
-  // numbers = [5, 6, 7, 8, 9, 10];
+  numbers = [5, 6, 7, 8, 9, 10];
 
-  numbers = [1, 2, 3, 4];
-
+  // numbers = [1, 2, 3, 4];
   selectedNumber: number;
-
   pegs = [[], [], []];
-
   disk = '';
+  callStack = [];
 
   constructor() {
 
@@ -54,20 +52,35 @@ export class TowerOfHanoiComponent implements OnInit {
       this.pegs[0][i] = i;
     }
   }
-  moveStackForLoop() {
-    for (let i = 0; i < this.pegs[0].length; i++) {
-      this.pegs[1].unshift(this.pegs[0][0])
-    }
+
+  moveDisk(from, to) {
+    const disk = this.pegs[from][0];
+    this.pegs[from].shift();
+    this.pegs[to].unshift(disk);
   }
 
-  moveTopDisk() {
-    const destPeg = 1;
-    const sourcePeg = 0;
-    const disk = this.pegs[sourcePeg][0];
+  solveIt(numDisks, source, destination) {
 
-    this.pegs[destPeg].unshift(this.pegs[sourcePeg].shift());
+    this.solveHanoi(numDisks, source, destination);
 
-    console.log(disk, this.pegs[sourcePeg], this.pegs[destPeg]);
+    this.moveDisks();
+  }
+
+  moveDisks() {
+    if (this.callStack.length === 0) {
+      return;
+    }
+
+    const param = this.callStack.shift();
+    const source = param[0];
+    const destination = param[1];
+
+    this.pegs[destination].unshift(this.pegs[source].shift());
+
+    setTimeout(() => {
+      this.moveDisks();
+      }, 2000);
+
   }
 
   solveHanoi(numDisks, source, destination) {
@@ -81,19 +94,9 @@ export class TowerOfHanoiComponent implements OnInit {
     // keep track of which peg is the spare
     const spare = 3 - source - destination;
 
-    // setTimeout(() =>{
-    //  this.solveHanoi(numDisks - 1, source, spare)
-    // }, 2000);
-
     this.solveHanoi(numDisks - 1, source, spare);
 
-    const disk = this.pegs[source][0];
-
-    this.pegs[source].shift();
-    this.pegs[destination].unshift(disk);
-
-    console.log('numDisks: ', numDisks, 'A: ', this.pegs[0], 'B: ', this.pegs[1], 'C: ', this.pegs[2]);
-    console.log('---');
+    this.callStack.push([source, destination]);
 
     this.solveHanoi(numDisks - 1, spare, destination);
 
