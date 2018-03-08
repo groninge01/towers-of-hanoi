@@ -13,12 +13,12 @@ import { animate, animation, query, style, transition, trigger } from '@angular/
         query(':enter', animation(
           [
             style({ opacity: 0 }),
-            animate('1s ease-in', style({ opacity: 1 }))
+            animate('.5s ease-in', style({ opacity: 1 }))
           ]), { optional: true }),
         query(':leave', animation(
           [
             style({ opacity: 1 }),
-            animate('1s ease-out', style({ opacity: 0 }))
+            animate('.5s ease-out', style({ opacity: 0 }))
           ]), { optional: true })
       ])
     ])
@@ -41,7 +41,7 @@ export class TowerOfHanoiComponent implements OnInit {
 
   }
 
-  resetStack() {
+  clearStack() {
     this.pegs = [[], [], []];
   }
 
@@ -71,7 +71,7 @@ export class TowerOfHanoiComponent implements OnInit {
 
     setTimeout(() => {
       this.moveDisks();
-      }, 2000);
+      }, 1000);
 
   }
 
